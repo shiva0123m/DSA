@@ -11,6 +11,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0801-is-graph-bipartite](https://github.com/shiva0123m/DSA/tree/master/0801-is-graph-bipartite) |
+| [1036-rotting-oranges](https://github.com/shiva0123m/DSA/tree/master/1036-rotting-oranges) |
 ## Union Find
 |  |
 | ------- |
@@ -19,4 +20,12 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [0801-is-graph-bipartite](https://github.com/shiva0123m/DSA/tree/master/0801-is-graph-bipartite) |
+## Array
+|  |
+| ------- |
+| [1036-rotting-oranges](https://github.com/shiva0123m/DSA/tree/master/1036-rotting-oranges) |
+## Matrix
+|  |
+| ------- |
+| [1036-rotting-oranges](https://github.com/shiva0123m/DSA/tree/master/1036-rotting-oranges) |
 <!---LeetCode Topics End-->
