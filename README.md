@@ -6,10 +6,12 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Depth-First Search
 |  |
 | ------- |
+| [0210-course-schedule-ii](https://github.com/shiva0123m/DSA/tree/master/0210-course-schedule-ii) |
 | [0801-is-graph-bipartite](https://github.com/shiva0123m/DSA/tree/master/0801-is-graph-bipartite) |
 ## Breadth-First Search
 |  |
 | ------- |
+| [0210-course-schedule-ii](https://github.com/shiva0123m/DSA/tree/master/0210-course-schedule-ii) |
 | [0801-is-graph-bipartite](https://github.com/shiva0123m/DSA/tree/master/0801-is-graph-bipartite) |
 | [1036-rotting-oranges](https://github.com/shiva0123m/DSA/tree/master/1036-rotting-oranges) |
 ## Union Find
@@ -19,6 +21,7 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Graph
 |  |
 | ------- |
+| [0210-course-schedule-ii](https://github.com/shiva0123m/DSA/tree/master/0210-course-schedule-ii) |
 | [0801-is-graph-bipartite](https://github.com/shiva0123m/DSA/tree/master/0801-is-graph-bipartite) |
 ## Array
 |  |
@@ -28,4 +31,8 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 |  |
 | ------- |
 | [1036-rotting-oranges](https://github.com/shiva0123m/DSA/tree/master/1036-rotting-oranges) |
+## Topological Sort
+|  |
+| ------- |
+| [0210-course-schedule-ii](https://github.com/shiva0123m/DSA/tree/master/0210-course-schedule-ii) |
 <!---LeetCode Topics End-->
