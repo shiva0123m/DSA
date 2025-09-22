@@ -2,30 +2,35 @@ class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
     {
-        int p1=m-1;
-        int p2=n-1;
-        int p=m+n-1;
-
-        while(p1>=0 && p2>=0)
+        
+        int ptrNums1=m-1;
+        int ptrNums2=n-1;
+        int i=m+n-1;
+        while(ptrNums1>=0 && ptrNums2>=0)
         {
-            if(nums1[p1]>nums2[p2])
+            if(nums1[ptrNums1]<nums2[ptrNums2])
             {
-                nums1[p]=nums1[p1];
-                p1--;
+                nums1[i]=nums2[ptrNums2];
+                ptrNums2--;
             }
             else
             {
-                nums1[p]=nums2[p2];
-                p2--;
+                nums1[i]=nums1[ptrNums1];
+                ptrNums1--;
             }
-            p--;
+            i--;
         }
-
-        while(p2>=0)
+        while(ptrNums2>=0)
         {
-            nums1[p]=nums2[p2];
-            p2--;
-            p--;
+            nums1[i]=nums2[ptrNums2];
+            ptrNums2--;
+            i--;
         }
+        while(ptrNums1>=0)
+        {
+            nums1[i]=nums1[ptrNums1];
+            ptrNums1--;
+            i--;
+        }    
     }
 };
