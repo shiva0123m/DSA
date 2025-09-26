@@ -5,7 +5,7 @@ public:
         int n=s.length();
         // total number of character in the section
         if(numRows==1)return s;
-        
+
         int charinsection=2*(numRows-1); 
         string ans;
         for(int charRow=0;charRow<numRows;charRow++)
@@ -15,6 +15,7 @@ public:
             while(index<n)
             {
                 ans+=s[index];
+                // for 1st to n-1 rows
                 if(charRow!=0 && charRow!=numRows-1)
                 {
                     int charIndex=charinsection- 2*(charRow);
