@@ -2,27 +2,29 @@ class Solution {
 public:
     int trap(vector<int>& height) 
     {
-        int n = height.size();
-        int left = 0, right = n - 1;
-        int res = 0;
-        int maxLeft = 0, maxRight = 0;
-        while (left <= right) {
-            if (height[left] <= height[right]) {
-            if (height[left] >= maxLeft) {
-                maxLeft = height[left];
-            } else {
-                res += maxLeft - height[left];
-            }
-            left++;
-            } else {
-            if (height[right] >= maxRight) {
-                maxRight = height[right];
-            } else {
-                res += maxRight - height[right];
-            }
-            right--;
-            }
+        int n=height.size();
+         if (n == 0) return 0;
+        vector<int>suffixGreaterBuilding(n);
+        vector<int>prefixGreaterBuilding(n);
+        suffixGreaterBuilding[n-1]=height[n-1];
+        prefixGreaterBuilding[0]=height[0];
+        int temp=suffixGreaterBuilding[n-1];
+        for(int i=n-2;i>=0;i--)
+        {
+            suffixGreaterBuilding[i]=max(height[i],temp);
+            temp=max(height[i],temp);
         }
-        return res;
+        temp=prefixGreaterBuilding[0];
+        for(int i=0;i<n;i++)
+        {
+            prefixGreaterBuilding[i]=max(height[i],temp);
+            temp=max(height[i],temp);
+        }
+        int totalWater=0;
+        for(int i=0;i<n;i++)
+        {
+            totalWater+=min(suffixGreaterBuilding[i],prefixGreaterBuilding[i])-height[i];
+        }
+        return totalWater;
     }
 };
