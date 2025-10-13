@@ -1,20 +1,34 @@
 class Solution {
 public:
-    bool isIsomorphic(string s, string t)
+    bool isIsomorphic(string s, string t) 
     {
-        int mp_s[128]={0};
-        int mp_t[128]={0};
-
-        for(int i=0;s[i]!='\0';i++)
-        {
-
-
-            if(mp_s[s[i]]!=mp_t[t[i]])
+        if (s.length() != t.length())
             return false;
-            mp_s[s[i]]=i+1;
-            mp_t[t[i]]=i+1;
 
+        unordered_map<char, char> s_to_t;
+        unordered_map<char, char> t_to_s;
+
+        for (int i = 0; i < s.length(); ++i) {
+            char c1 = s[i];
+            char c2 = t[i];
+
+            // Check s -> t mapping
+            if (s_to_t.count(c1)) {
+                if (s_to_t[c1] != c2)
+                    return false;
+            } else {
+                s_to_t[c1] = c2;
+            }
+
+            // Check t -> s mapping
+            if (t_to_s.count(c2)) {
+                if (t_to_s[c2] != c1)
+                    return false;
+            } else {
+                t_to_s[c2] = c1;
+            }
         }
+
         return true;
     }
 };
