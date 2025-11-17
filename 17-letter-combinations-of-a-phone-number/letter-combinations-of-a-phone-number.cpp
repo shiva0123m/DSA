@@ -1,33 +1,36 @@
 class Solution {
 public:
-    vector<string> letterCombinations(string digits) {
-        if (digits.empty()) return {};
+    vector<string> letterCombinations(string digits) 
+    {
+        if (digits.empty())
+        return {};
 
-        vector<string> phoneMap = {
-            "", "", "abc", "def", "ghi",
-            "jkl", "mno", "pqrs", "tuv", "wxyz"
-        };
+        vector<string> mapping = {
+            "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
+        }; 
 
         vector<string> result;
         string current;
-        generateCombinations(digits, 0, phoneMap, current, result);
+        backtrack(0, digits, mapping, current, result);
         return result;
     }
+    private:
+    void backtrack(int index, const string &digits,
+                   const vector<string> &mapping,
+                   string &current, vector<string> &result) {
 
-private:
-    void generateCombinations(const string& digits, int index,
-                              const vector<string>& phoneMap,
-                              string& current, vector<string>& result) {
-        if (index == digits.size()) {
+        if(index==digits.size())
+        {
             result.push_back(current);
             return;
         }
+        string letters = mapping[digits[index] - '0'];
 
-        string letters = phoneMap[digits[index] - '0'];
-        for (char letter : letters) {
-            current.push_back(letter);
-            generateCombinations(digits, index + 1, phoneMap, current,result);
+        for (char c : letters) {
+            current.push_back(c);
+            backtrack(index + 1, digits, mapping, current, result);
             current.pop_back();
         }
+
     }
 };
