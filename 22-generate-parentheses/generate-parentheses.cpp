@@ -1,23 +1,26 @@
 class Solution {
 public:
-    void generateparentheses(vector<string>& ans, int n, int ob, int cb, string s)
+    void generateParenthesis(vector<string>&ans,int n,string s,int ob,int cb)
     {
-        if (ob == n && cb == n) {
-            ans.push_back(s); // add completed combination
+        if(cb==n)
+        {
+            ans.push_back(s);
             return;
         }
-        if (ob < n) {
-            generateparentheses(ans, n, ob + 1, cb, s + '(');
+        if(ob<n)
+        {
+            generateParenthesis(ans,n,s+'(',ob+1,cb);
         }
-        if (cb < ob) {
-            generateparentheses(ans, n, ob, cb + 1, s + ')');
+        if(cb<ob)
+        {
+            generateParenthesis(ans,n,s+')',ob,cb+1);
         }
     }
-
     vector<string> generateParenthesis(int n) 
     {
-        vector<string> ans;
-        generateparentheses(ans, n, 0, 0, "");
+        vector<string>ans;
+        string s;
+        generateParenthesis(ans,n,s,0,0);
         return ans;
     }
 };
