@@ -1,19 +1,23 @@
-class Solution {
-public:
-    int climbStairs(int n) 
-    {
-        if(n<=1)
+class Solution 
+{
+    public:
+        int climbStairs(int n) 
         {
-            return n;
+            if(n<=1)
+            {
+                return n;
+            }
+            int prev1=1;
+            int prev2=1;
+            int curr=0;
+            for(int i=2;i<=n;i++)
+            {
+                curr=prev1+prev2;
+                prev2=prev1;
+                prev1=curr;
+
+            }
+            return curr;
         }
-        vector<int>ans(n+1,-1);
-        ans[0]=1;
-        ans[1]=1;
-        for(int i=2;i<=n;i++)
-        {
-            ans[i]=ans[i-2]+ans[i-1];
-        }
-        return ans[n];
-    }
 };
-// using tabulation with O(n) TC and O(n)SC
+// using Space Optimization
