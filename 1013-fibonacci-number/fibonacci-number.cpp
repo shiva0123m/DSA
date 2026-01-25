@@ -1,25 +1,20 @@
 class Solution {
 public:
-    int fibAns(int n,vector<int>&ans)
-    {
-        if(ans[n]!=-1)
-            return ans[n];
-        
-        ans[n]=fibAns(n-1,ans)+fibAns(n-2,ans);        
-        return ans[n];
-    }
     int fib(int n) 
     {
         if(n<=1)
         {
             return n;
         }
-        vector<int>ans(n+1,-1);
+        vector<int>ans(n+1,0);
         ans[0]=0;
         ans[1]=1;
-
-        return fibAns(n,ans);
+        for(int i=2;i<=n;i++)
+        {
+            ans[i]=ans[i-1]+ans[i-2];
+        }
+        return ans[n];
     }
 };
 
-// using memoization 
+// using tabulation bottom up approach
