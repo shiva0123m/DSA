@@ -1,19 +1,25 @@
 class Solution {
 public:
-    int fibAns(int n)
+    int fibAns(int n,vector<int>&ans)
     {
-        if(n==0)
-            return 0;
-        if(n==1)
-            return 1;
+        if(ans[n]!=-1)
+            return ans[n];
         
-        return fibAns(n-1)+fibAns(n-2);
+        ans[n]=fibAns(n-1,ans)+fibAns(n-2,ans);        
+        return ans[n];
     }
     int fib(int n) 
     {
-        return fibAns(n);
+        if(n<=1)
+        {
+            return n;
+        }
+        vector<int>ans(n+1,-1);
+        ans[0]=0;
+        ans[1]=1;
+
+        return fibAns(n,ans);
     }
 };
 
-// using top to bottom approach 
-// with TC 2^n;
+// using memoization 
