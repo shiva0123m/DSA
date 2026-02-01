@@ -1,15 +1,5 @@
 class Solution {
 public:
-    int robMax(int n,vector<int>&nums,vector<int>&dp)
-    {
-        if (n < 0) return 0;
-        if(dp[n]!=-1)
-        {
-           return dp[n];
-        }
-        dp[n]=max(nums[n]+robMax(n-2,nums,dp),robMax(n-1,nums,dp));
-        return dp[n];
-    }
     int rob(vector<int>& nums) 
     {
         int n=nums.size();
@@ -20,6 +10,12 @@ public:
             return nums[0];
         }
         dp[1]=max(nums[0],nums[1]);
-        return robMax(n-1,nums,dp);   
+
+        for(int i=2;i<n;i++)
+        {
+            dp[i]=max(nums[i]+dp[i-2],dp[i-1]);
+        }
+
+        return dp[n-1];   
     }
 };
