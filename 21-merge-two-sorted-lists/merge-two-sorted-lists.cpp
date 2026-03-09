@@ -12,37 +12,48 @@ class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) 
     {
-        ListNode *num1=list1;
-        ListNode* num2=list2;
-        ListNode* ans=new ListNode();
-        ListNode* head=ans;
-        while(num1!=NULL && num2!=NULL )
+        ListNode* dummy=new ListNode(0);
+        ListNode* temp=dummy;
+        if(list1==NULL)
         {
-            if(num1->val<num2->val)
+            return list2;
+        } 
+        if(list2==NULL)
+        {
+            return list1;
+        }
+        while(list1!=NULL && list2!=NULL)
+        {
+            if(list1->val<list2->val)
             {
-                ans->next=new ListNode(num1->val);
-                num1=num1->next;
+                dummy->next=new ListNode(list1->val);
+                list1=list1->next;
+                dummy=dummy->next;
+            }
+            else if(list2->val<list1->val)
+            {
+                dummy->next=new ListNode(list2->val);
+                list2=list2->next;
+                dummy=dummy->next;
             }
             else
             {
-                ans->next=new ListNode(num2->val);
-                num2=num2->next;
+                dummy->next=new ListNode(list1->val);
+                dummy=dummy->next;
+                list1=list1->next;
+                dummy->next=new ListNode(list2->val);
+                dummy=dummy->next;
+                list2=list2->next;
             }
-            ans=ans->next;
         }
-
-        while(num1!=NULL)
+        if(list1!=NULL)
         {
-            ans->next=new ListNode(num1->val);
-            num1=num1->next;
-            ans=ans->next;
+            dummy->next=list1;
         }
-        while(num2!=NULL)
+        if(list2!=NULL)
         {
-            ans->next=new ListNode(num2->val);
-            num2=num2->next;
-            ans=ans->next;
-        }  
-        return head->next;  
+            dummy->next=list2;
+        }
+        return temp->next;
     }
 };
