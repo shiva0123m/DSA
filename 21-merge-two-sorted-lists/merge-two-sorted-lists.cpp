@@ -12,12 +12,12 @@ class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) 
     {
-        ListNode* dummy=new ListNode(0);
+        ListNode* dummy =new ListNode(0);
         ListNode* temp=dummy;
         if(list1==NULL)
         {
             return list2;
-        } 
+        }
         if(list2==NULL)
         {
             return list1;
@@ -26,25 +26,15 @@ public:
         {
             if(list1->val<list2->val)
             {
-                dummy->next=new ListNode(list1->val);
+                dummy->next=list1;
                 list1=list1->next;
-                dummy=dummy->next;
-            }
-            else if(list2->val<list1->val)
-            {
-                dummy->next=new ListNode(list2->val);
-                list2=list2->next;
-                dummy=dummy->next;
             }
             else
             {
-                dummy->next=new ListNode(list1->val);
-                dummy=dummy->next;
-                list1=list1->next;
-                dummy->next=new ListNode(list2->val);
-                dummy=dummy->next;
+                dummy->next=list2;
                 list2=list2->next;
             }
+            dummy=dummy->next;
         }
         if(list1!=NULL)
         {
