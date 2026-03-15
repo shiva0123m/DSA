@@ -1,30 +1,32 @@
 class Solution {
 public:
-    ListNode* reverseBetween(ListNode* head, int left, int right) {
-
-        if (!head || left == right) return head;
+    ListNode* reverseBetween(ListNode* head, int left, int right) 
+    {
+        if(head == NULL || left == right)
+            return head;
 
         ListNode* dummy = new ListNode(0);
         dummy->next = head;
-        
-        ListNode* leftpre = dummy;
-        for (int i = 0; i < left - 1; i++) {
-            leftpre = leftpre->next;
+
+        ListNode* prev = dummy;
+
+        // Move prev to node before "left"
+        for(int i = 1; i < left; i++)
+        {
+            prev = prev->next;
         }
 
-        ListNode* curr = leftpre->next;
-        
-        ListNode* prev = nullptr;
-        for (int i = 0; i <= right - left; i++) {
-            ListNode* nextNode = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = nextNode;
+        ListNode* curr = prev->next;
+
+        // Reverse sublist
+        for(int i = 0; i < right - left; i++)
+        {
+            ListNode* temp = curr->next;
+            curr->next = temp->next;
+            temp->next = prev->next;
+            prev->next = temp;
         }
 
-        leftpre->next->next = curr; 
-        leftpre->next = prev; 
-
-        return dummy->next;  
+        return dummy->next;
     }
 };
