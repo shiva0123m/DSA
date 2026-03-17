@@ -16,7 +16,7 @@ public:
         dummy->next=head;
         ListNode* prev=dummy;
 
-        while(prev->next && prev->next->next)
+        while(prev->next!=NULL && prev->next->next!=NULL)
         {
             ListNode* first=prev->next;
             ListNode* second=prev->next->next;
