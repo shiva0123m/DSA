@@ -1,24 +1,34 @@
 class Solution {
 public:
-    ListNode* partition(ListNode* head, int x) {
-        ListNode* l1 = new ListNode(); 
-        ListNode* l2 = new ListNode();  
-        ListNode* l1_curr = l1;        
-        ListNode* l2_curr = l2;         
-        ListNode* temp = head;
+    ListNode* partition(ListNode* head, int x) 
+    {
+        ListNode* beforeDummy = new ListNode(0);
+        ListNode* afterDummy = new ListNode(0);
 
-        while (temp) {
-            if (temp->val < x) {
-                l1_curr->next = new ListNode(temp->val);
-                l1_curr = l1_curr->next;  
-            } else {
-                l2_curr->next = new ListNode(temp->val);
-                l2_curr = l2_curr->next;  
+        ListNode* before = beforeDummy;
+        ListNode* after = afterDummy;
+
+        ListNode* curr = head;
+
+        while(curr != NULL)
+        {
+            if(curr->val < x)
+            {
+                before->next = curr;
+                before = before->next;
             }
-            temp = temp->next;
+            else
+            {
+                after->next = curr;
+                after = after->next;
+            }
+            curr = curr->next;
         }
 
-        l1_curr->next = l2->next;
-        return l1->next;  
+        after->next = NULL;
+
+        before->next = afterDummy->next;
+
+        return beforeDummy->next;
     }
 };
