@@ -12,25 +12,23 @@ class Solution {
 public:
     ListNode* modifiedList(vector<int>& nums, ListNode* head) 
     {
-        set<int>st;
+        unordered_set<int>st;
         st.insert(nums.begin(),nums.end());
         ListNode* dummy=new ListNode(0);
-        ListNode*ans=dummy;
-        ListNode* temp=head;
-        if(head==NULL)
+        dummy->next=head;
+        ListNode* curr=dummy;
+        while(curr->next!=NULL)
         {
-            return head;
-        }
-        while(temp!=NULL)
-        {
-            if(st.find(temp->val)==st.end())
+            int value=curr->next->val;
+            if(st.find(value)!=st.end())
             {
-                dummy->next=temp;
-                dummy=dummy->next;
+                curr->next=curr->next->next;
             }
-            temp=temp->next;
-        }  
-        dummy->next=NULL;  
-        return ans->next;
+            else
+            {
+                curr=curr->next;
+            }
+        }
+        return dummy->next;
     }
 };
