@@ -1,1 +1,1 @@
-<h2>remove-linked-list-elements Notes</h2><hr>[ Time taken: 28m 30s ]
+<h2>remove-linked-list-elements Notes</h2><hr>[ Time taken: 14m 8s ]
