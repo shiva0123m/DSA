@@ -24,10 +24,10 @@ public:
         {
             return {true,LLONG_MAX,LLONG_MIN};
         }
-        if (root->left == nullptr && root->right == nullptr) 
-        {
-            return {true,(long long) root->val, (long long)root->val};
-        }
+        // if (root->left == nullptr && root->right == nullptr) 
+        // {
+        //     return {true,(long long) root->val, (long long)root->val};
+        // }
 
         tripletReturn left=getValidity(root->left);
         tripletReturn right=getValidity(root->right);
