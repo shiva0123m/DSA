@@ -1,31 +1,30 @@
-class Solution 
-{
+class Solution {
 public:
     int findPeakElement(vector<int>& nums) 
     {
-        int n = nums.size(); 
+        int low=0;
+        int high=nums.size()-1;
 
-        
-        if (n == 1) return 0;
-        if (nums[0] > nums[1]) return 0;
-        if (nums[n - 1] > nums[n - 2]) return n - 1;
+        while(low<=high)
+        {
+            int mid=low+(high-low)/2;
 
-        int low = 1, high = n - 2;
-        while (low <= high) {
-            int mid = (low + high) / 2;
+            bool isGreaterThanLeft=mid==0||nums[mid]>nums[mid-1]?true:false;
+            bool isGreaterThanRight=mid==nums.size()-1||nums[mid]>nums[mid+1]?true:false;
 
-            //If nums[mid] is the peak:
-            if (nums[mid - 1] < nums[mid] && nums[mid] > nums[mid + 1])
+            if(isGreaterThanLeft && isGreaterThanRight)
+            {
                 return mid;
-
-            // If we are in the left:
-            if (nums[mid] > nums[mid - 1]) low = mid + 1;
-
-            // If we are in the right:
-            // Or, nums[mid] is a common point:
-            else high = mid - 1;
+            }
+            else if(mid==0 || nums[mid]>nums[mid-1])
+            {
+                low=mid+1;
+            }
+            else
+            {
+                high=mid;
+            }
         }
-        // Dummy return statement
         return -1;
     }
 };
