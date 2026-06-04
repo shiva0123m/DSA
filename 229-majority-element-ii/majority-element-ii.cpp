@@ -1,63 +1,45 @@
 class Solution {
 public:
-    vector<int> majorityElement(vector<int>& nums) 
-    {
-        int n=nums.size();
+    vector<int> majorityElement(vector<int>& nums) {
+        int n = nums.size();
 
-        // Handling Base case
-        if(n==0)
-        {
-            return nums;
-        }    
+        int c1 = 0, c2 = 1;
+        int f1 = 0, f2 = 0;
 
-        int candidate=0;
-        int candidate1=1;
-        int count=0;
-        int count1=0;
-
-        // Calculating candidate occurrence and ,Moore's Voting alogirthm implimentaion
-        for(int i=0;i<n;i++)
-        {
-            if(nums[i]==candidate)
-            {
-                count++;
+        for (int num : nums) {
+            if (num == c1) {
+                f1++;
             }
-            else if(nums[i]==candidate1)
-            {
-                count1++;
+            else if (num == c2) {
+                f2++;
             }
-            else if(count==0)
-            {
-                candidate=nums[i];
-                count=1;
+            else if (f1 == 0) {
+                c1 = num;
+                f1 = 1;
             }
-            else if(count1==0)
-            {
-                candidate1=nums[i];
-                count1++;
+            else if (f2 == 0) {
+                c2 = num;
+                f2 = 1;
             }
-            else
-            {
-                count--;
-                count1--;
+            else {
+                f1--;
+                f2--;
             }
         }
 
-       count=0;
-       count1=0;
+        f1 = f2 = 0;
 
-        
-        for(int i=0;i<n;i++)
-        {
-            if(nums[i]==candidate)count++;
-            if(nums[i]==candidate1)count1++;
+        for (int num : nums) {
+            if (num == c1)
+                f1++;
+            else if (num == c2)
+                f2++;
         }
 
-        vector<int>ans;
+        vector<int> ans;
 
-        // Cross Verification
-        if(count>n/3)ans.push_back(candidate);
-        if(count1>n/3)ans.push_back(candidate1);
+        if (f1 > n / 3) ans.push_back(c1);
+        if (f2 > n / 3) ans.push_back(c2);
 
         return ans;
     }
