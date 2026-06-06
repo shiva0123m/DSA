@@ -1,43 +1,48 @@
 class Solution {
 public:
-    bool possible(vector<int> &arr, int day, int m, int k) 
+    bool isValid(vector<int>& bloomDay, int m, int k,int mid)
     {
-        int n = arr.size(); //size of the array
-        int cnt = 0;
-        int noOfB = 0;
-        // count the number of bouquets:
-        for (int i = 0; i < n; i++) {
-            if (arr[i] <= day) {
-                cnt++;
+        int flowers=0;
+        int bouquet=0;
+        for(int i=0;i<bloomDay.size();i++)
+        {
+            if(bloomDay[i]<=mid)
+            {
+                flowers++;
+                if(flowers==k)
+                {
+                    bouquet++;
+                    flowers=0;
+                }
             }
-            else {
-                noOfB += (cnt / k);
-                cnt = 0;
+            else
+            {
+                flowers=0;
             }
         }
-        noOfB += (cnt / k);
-        return noOfB >= m;
+        return bouquet>=m;
     }
     int minDays(vector<int>& bloomDay, int m, int k) 
     {
-        long long val = m * 1ll * k * 1ll;
-        int n = bloomDay.size(); //size of the array
-        if (val > n) return -1; //impossible case.
-        //find maximum and minimum:
-        int mini = INT_MAX, maxi = INT_MIN;
-        for (int i = 0; i < n; i++) {
-            mini = min(mini, bloomDay[i]);
-            maxi = max(maxi, bloomDay[i]);
+        int low=*min_element(bloomDay.begin(),bloomDay.end());
+        int high=*max_element(bloomDay.begin(),bloomDay.end());
+        int n=bloomDay.size();
+        if(n<(long long)m * k)
+        {
+            return -1;
         }
+        while(low<high)
+        {
+            int mid=low+(high-low)/2;
 
-        //apply binary search:
-        int low = mini, high = maxi;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (possible(bloomDay, mid, m, k)) {
-                high = mid - 1;
+            if(isValid(bloomDay,m,k,mid))
+            {
+                high=mid;
             }
-            else low = mid + 1;
+            else
+            {
+                low=mid+1;
+            }  
         }
         return low;
     }
