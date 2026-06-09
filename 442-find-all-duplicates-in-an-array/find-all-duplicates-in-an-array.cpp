@@ -5,15 +5,17 @@ class Solution
         {
             int n=nums.size();
             vector<int>ans;
-            for( int i=0;i<n;i++)
+            for(int i=0;i<n;i++)
             {
-                if(nums[abs(nums[i])-1]>0)
+                int index=abs(nums[i]);
+
+                if(nums[index-1]>0)
                 {
-                    nums[abs(nums[i])-1]*=-1;
+                    nums[index-1]=-nums[index-1];
                 }
                 else
                 {
-                    ans.push_back(abs(nums[i]));
+                    ans.push_back(index);
                 }
             }
             return ans;
