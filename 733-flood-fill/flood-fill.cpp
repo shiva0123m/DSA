@@ -1,29 +1,31 @@
 class Solution {
 public:
-    void DFS(int row, int col, vector<vector<int>>& image, int newColor, int color, int dr[], int dc[]) {
-        image[row][col] = newColor;
+    void Fill(vector<vector<int>>& image, int sr, int sc, int color,int srcColor)
+    {
+        
+        int row=image.size();
+        int col=image[0].size();
+        if(sr < 0 || sr >= row || sc < 0 || sc >= col)
+            return;
+        
+        if(image[sr][sc]!=srcColor)return;
 
-        for (int i = 0; i < 4; i++) {
-            int nr = row + dr[i];
-            int nc = col + dc[i];
+        image[sr][sc]=color;
 
-            if (nr >= 0 && nc >= 0 && nr < image.size() && nc < image[0].size()
-                && image[nr][nc] == color) {
-                DFS(nr, nc, image, newColor, color, dr, dc);
-            }
-        }
+        Fill(image,sr-1,sc,color,srcColor);
+        Fill(image,sr,sc+1,color,srcColor);
+        Fill(image,sr+1,sc,color,srcColor);
+        Fill(image,sr,sc-1,color,srcColor);
+        
     }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) 
+    {
+        int srcColor=image[sr][sc];
+        if (srcColor == color)
+            return image;
 
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        int inicolor = image[sr][sc];
+        Fill(image,sr,sc,color,srcColor);
 
-        // If the new color is the same as the original, no need to do anything
-        if (inicolor == color) return image;
-
-        int dr[] = {-1, 0, 1, 0};
-        int dc[] = {0, 1, 0, -1};
-
-        DFS(sr, sc, image, color, inicolor, dr, dc);
         return image;
     }
 };
