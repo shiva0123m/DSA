@@ -1,45 +1,41 @@
 class Solution {
 public:
-    void BFS(int row, int col, vector<vector<int>>& vis, vector<vector<char>>& grid, int n, int m) {
-        vis[row][col] = 1;
-        queue<pair<int, int>> q;
-        q.push({row, col});
+    void dfs(int row,int col,vector<vector<char>>& grid)
+    {
 
-        int drow[] = {-1, 0, 1, 0};
-        int dcol[] = {0, 1, 0, -1};
 
-        while (!q.empty()) {
-            int r = q.front().first;
-            int c = q.front().second;
-            q.pop();
+        int rowSize=grid.size();
+        int colSize=grid[0].size();
 
-            for (int k = 0; k < 4; k++) {
-                int nrow = r + drow[k];
-                int ncol = c + dcol[k];
+        if (row < 0 || col < 0 || row >= rowSize || col >= colSize)
+            return;
 
-                if (nrow >= 0 && ncol >= 0 && nrow < n && ncol < m &&
-                    grid[nrow][ncol] == '1' && !vis[nrow][ncol]) {
-                    vis[nrow][ncol] = 1;
-                    q.push({nrow, ncol});
-                }
-            }
-        }
+        if (grid[row][col] == '0')
+            return;
+
+        grid[row][col] = '0';
+
+        dfs(row-1,col,grid);
+        dfs(row+1,col,grid);
+        dfs(row,col-1,grid);
+        dfs(row,col+1,grid);
     }
-
-    int numIslands(vector<vector<char>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
-        vector<vector<int>> vis(n, vector<int>(m, 0));
-        int cnt = 0;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (!vis[i][j] && grid[i][j] == '1') {
-                    cnt++;
-                    BFS(i, j, vis, grid, n, m);
+    int numIslands(vector<vector<char>>& grid) 
+    {
+        int rowSize=grid.size();
+        int colSize=grid[0].size();
+        int island=0;
+        for(int i=0;i<rowSize;i++)
+        {
+            for(int j=0;j<colSize;j++)
+            {
+                if(grid[i][j]=='1')
+                {
+                    island++;
+                    dfs(i,j,grid);
                 }
             }
         }
-        return cnt;
+        return island;
     }
 };
