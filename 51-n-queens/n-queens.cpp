@@ -1,46 +1,41 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-class Solution {
+class Solution 
+{
 public:
-    void solve(vector<string>& board, vector<vector<string>>& ans, int col, int n,
-               vector<int>& rows, vector<int>& upperDiagonal, vector<int>& lowerDiagonal) 
+    vector<vector<string>>ans;
+public:
+    void mark(int row,vector<int>&col,vector<string>&board,vector<int>&upperDiagonal,vector<int>&lowerDiagonal,int n)
     {
-        if (col == n) {
+        if(row==n)
+        {
             ans.push_back(board);
-            return;
+            return; 
         }
 
-        for (int i = 0; i < n; i++) {
-            if (rows[i] == 0 && lowerDiagonal[i + col] == 0 && upperDiagonal[n - 1 + col - i] == 0) {
-                board[i][col] = 'Q';
-                rows[i] = 1;
-                lowerDiagonal[i + col] = 1;
-                upperDiagonal[n - 1 + col - i] = 1;
-
-                solve(board, ans, col + 1, n, rows, upperDiagonal, lowerDiagonal);
-
-                board[i][col] = '.';
-                rows[i] = 0;
-                lowerDiagonal[i + col] = 0;
-                upperDiagonal[n - 1 + col - i] = 0;
-            }
+        for(int i=0;i<n;i++)
+        {
+            if(col[i] || upperDiagonal[row-i+n-1] || lowerDiagonal[row+i])
+                continue;
+            
+            col[i]=1;
+            upperDiagonal[row-i+n-1]=1;
+            lowerDiagonal[row+i]=1;
+            board[row][i]='Q';
+            mark(row+1,col,board,upperDiagonal,lowerDiagonal,n);
+            col[i]=0;
+            upperDiagonal[row-i+n-1]=0;
+            lowerDiagonal[row+i]=0;
+            board[row][i]='.';
         }
     }
+    vector<vector<string>> solveNQueens(int n) 
+    {
+        vector<string>board(n,string(n,'.'));
 
-    vector<vector<string>> solveNQueens(int n) {
-        vector<string> board;
-        string s(n, '.');
-        for (int i = 0; i < n; i++) {
-            board.push_back(s);
-        }
+        vector<int>upperDiagonal(2*n-1,0);
+        vector<int>lowerDiagonal(2*n-1,0);
+        vector<int>col(n,0);
 
-        vector<vector<string>> ans;
-        vector<int> rows(n, 0);
-        vector<int> upperDiagonal(2 * n - 1, 0);
-        vector<int> lowerDiagonal(2 * n - 1, 0);
-
-        solve(board, ans, 0, n, rows, upperDiagonal, lowerDiagonal);
+        mark(0,col,board,upperDiagonal,lowerDiagonal,n);
         return ans;
     }
 };
