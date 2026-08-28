@@ -1,31 +1,31 @@
 class Solution {
 public:
-    void findCombinations(int i,vector<vector<int>>&ans,vector<int>&temp,int target,vector<int>&candidates)
+    void generateCombinations(int index,vector<int>& candidates,int target,vector<int>&subsets,vector<vector<int>>&ans)
     {
-        if(i>=candidates.size())
+
+        if(target==0)
         {
-            if(target==0)
-            {
-                ans.push_back(temp);
-                return;
-            }
+            ans.push_back(subsets);
             return;
         }
-        if(candidates[i]<=target)
+        if(index==candidates.size() || target<0)
         {
-            temp.push_back(candidates[i]);
-            findCombinations(i,ans,temp,target-candidates[i],candidates);
-            temp.pop_back();
+            return;
         }
-        findCombinations(i+1,ans,temp,target,candidates);
-
+        if(target-candidates[index]>=0)
+        {
+            subsets.push_back(candidates[index]);
+            generateCombinations(index,candidates,target-candidates[index],subsets,ans);
+            subsets.pop_back();
+        }
+        generateCombinations(index+1,candidates,target,subsets,ans);
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) 
     {
-        vector<vector<int>> ans;
-        vector<int>temp;
+        vector<int>subsets;
+        vector<vector<int>>ans;
 
-        findCombinations(0,ans,temp,target,candidates);
+        generateCombinations(0,candidates,target,subsets,ans);
         return ans;
     }
 };
