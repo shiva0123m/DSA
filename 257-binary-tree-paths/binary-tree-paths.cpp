@@ -9,43 +9,40 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-
-
-//  1.run preorder on 
-//  2.Once traversal hit leaf node store path
-//  3.undo /remove the element while back track(base case root==NULL)
-//  4. Return the vector string 
-//  edge case :
 class Solution 
 {
     public:
-        void preorder(TreeNode* node,string curr,vector<string>&ans)
+        void findAllPaths(TreeNode* root,vector<string>&ans,string curr)
         {
-            if(node==NULL)
+            if(root==NULL)
             {
                 return;
             }
-            if(curr.empty())
+
+            string newCurr;
+            if(curr=="")
             {
-                curr=to_string(node->val);
+                newCurr=to_string(root->val);
             }
             else
             {
-                curr+="->"+to_string(node->val);
+                newCurr=curr+"->"+to_string(root->val);
             }
 
-            if(node->left==NULL && node->right==NULL)
+            if(root->left==NULL && root->right==NULL)
             {
-                ans.push_back(curr);
+                ans.push_back(newCurr);
                 return;
             }
-            preorder(node->left,curr,ans);
-            preorder(node->right,curr,ans); 
+            findAllPaths(root->left,ans,newCurr);
+            findAllPaths(root->right,ans,newCurr); 
         }
         vector<string> binaryTreePaths(TreeNode* root) 
         {
-           vector<string>ans;
-           preorder(root,"",ans); 
-           return ans;
+            vector<string>ans;
+            string curr;
+
+            findAllPaths(root,ans,curr);
+            return ans;
         }
 };
