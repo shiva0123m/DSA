@@ -11,27 +11,21 @@
  */
 class Solution {
 public:
+    void findInOrderTraversal(TreeNode* root,vector<int>&inOrder)
+    {
+        if(root==NULL)
+        {
+            return ;
+        }
+        findInOrderTraversal(root->left,inOrder);
+        inOrder.push_back(root->val);
+        findInOrderTraversal(root->right,inOrder);
+    }
     vector<int> inorderTraversal(TreeNode* root) 
     {
-        if(root==NULL)return{};
-        stack<TreeNode*>st;
-        vector<int>ans;
-        TreeNode* curr=root;
-        while(!st.empty() || curr)
-        {
-            if(curr)
-            {
-                st.push(curr);
-                curr=curr->left;
-            }
-            else
-            {
-                curr=st.top();
-                st.pop();
-                ans.push_back(curr->val);
-                curr=curr->right;
-            }
-        }
-        return ans;
+        vector<int>inOrder;
+
+        findInOrderTraversal(root,inOrder);
+        return inOrder;
     }
 };
