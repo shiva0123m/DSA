@@ -1,41 +1,43 @@
-class Solution 
-{
+class Solution {
 public:
-    vector<vector<string>>ans;
-public:
-    void mark(int row,vector<int>&col,vector<string>&board,vector<int>&upperDiagonal,vector<int>&lowerDiagonal,int n)
+    void findTotalQueens(int row,vector<vector<string>>&ans,vector<int>&markCol,vector<int>&upperDiagonal,
+    vector<int>&lowerDiagonal,int n,vector<string>&board)
     {
         if(row==n)
         {
             ans.push_back(board);
-            return; 
+            return;
         }
 
         for(int i=0;i<n;i++)
         {
-            if(col[i] || upperDiagonal[row-i+n-1] || lowerDiagonal[row+i])
+            if(markCol[i]==1 || upperDiagonal[i+row] || lowerDiagonal[(n-1)+(row-i)] || board[row][i]=='Q')
+            {
                 continue;
-            
-            col[i]=1;
-            upperDiagonal[row-i+n-1]=1;
-            lowerDiagonal[row+i]=1;
+            }
+
             board[row][i]='Q';
-            mark(row+1,col,board,upperDiagonal,lowerDiagonal,n);
-            col[i]=0;
-            upperDiagonal[row-i+n-1]=0;
-            lowerDiagonal[row+i]=0;
+            markCol[i]=1;
+            upperDiagonal[i+row]=1;
+            lowerDiagonal[(n-1)+(row-i)]=1;
+            findTotalQueens(row+1,ans,markCol,upperDiagonal,lowerDiagonal,n,board);
             board[row][i]='.';
+            markCol[i]=0;
+            upperDiagonal[i+row]=0;
+            lowerDiagonal[(n-1)+(row-i)]=0;
         }
     }
     vector<vector<string>> solveNQueens(int n) 
     {
         vector<string>board(n,string(n,'.'));
 
+        vector<int>markCol(n,0);
         vector<int>upperDiagonal(2*n-1,0);
         vector<int>lowerDiagonal(2*n-1,0);
-        vector<int>col(n,0);
 
-        mark(0,col,board,upperDiagonal,lowerDiagonal,n);
+        vector<vector<string>>ans;
+
+        findTotalQueens(0,ans,markCol,upperDiagonal,lowerDiagonal,n,board);
         return ans;
     }
 };
