@@ -13,36 +13,40 @@
  *     }
  * }
  */
-class Solution 
-{
-    public void findAllTreePaths(TreeNode root,StringBuilder str,List<String> ans)
+class Solution {
+    public void findAllPaths(TreeNode root,StringBuilder sb,List<String>ans)
     {
-        if(root==null)return;
-
-        int orginalLength=str.length();
-        if(orginalLength>0)
+        if(root==null)
         {
-            str.append("->");
+            return;
         }
 
-        str.append(root.val);
+        int originalLength=sb.length();
+
+        if(originalLength>0)
+        {
+            sb.append("->");
+        }
+        sb.append(root.val);
 
         if(root.left==null && root.right==null)
         {
-            ans.add(str.toString());
+            ans.add(String.valueOf(sb));
         }
         else
         {
-            findAllTreePaths(root.left,str,ans);
-            findAllTreePaths(root.right,str,ans);
+            findAllPaths(root.left,sb,ans);
+            findAllPaths(root.right,sb,ans);
         }
-        str.setLength(orginalLength);
+        sb.setLength(originalLength);
     }
     public List<String> binaryTreePaths(TreeNode root) 
     {
-        List<String>ans=new ArrayList();
-        StringBuilder str=new StringBuilder();
-        findAllTreePaths(root,str,ans);
-        return ans;  
+        List<String> ans=new ArrayList<>();
+
+        StringBuilder sb= new StringBuilder();
+
+        findAllPaths(root,sb,ans);
+        return ans;
     }
 }
