@@ -1,22 +1,23 @@
 class Solution {
-    public void generateSubsets(int i,int n,List<List<Integer>> ans,List<Integer> subsets,int[] nums)
+    public void findTotalSubsets(int index,int[]  nums,int n,List<List<Integer>>ans,List<Integer>subset)
     {
-        if(i==n)
+        if(index==n)
         {
-            ans.add(new ArrayList(subsets));
+            ans.add(new ArrayList<>(subset));
             return;
         }
-        subsets.add(nums[i]);
-        generateSubsets(i+1,n,ans,subsets,nums);
-        subsets.remove(subsets.size() - 1);
-        generateSubsets(i+1,n,ans,subsets,nums);
+        subset.add(nums[index]);
+        findTotalSubsets(index+1,nums,n,ans,subset);
+        subset.remove(subset.size()-1);
+        findTotalSubsets(index+1,nums,n,ans,subset);
+        
     }
     public List<List<Integer>> subsets(int[] nums) 
     {
-        List<List<Integer>> ans= new ArrayList<>();    
-        List<Integer> subsets=new ArrayList<>();
+        List<List<Integer>> ans=new ArrayList<>();
+        List<Integer> subset= new ArrayList<>();
 
-        generateSubsets(0,nums.length,ans,subsets,nums);
+        findTotalSubsets(0,nums,nums.length,ans,subset);
         return ans;
     }
 }
