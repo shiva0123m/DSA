@@ -1,49 +1,48 @@
-class Solution {
-    public void findTotalQueenPatterns(int row,int n,List<StringBuilder>board,int [] cols,int []upperDiagonal,int[] lowerDiagonal,List<List<String>> ans)
+class Solution 
+{
+    public void findQueenPatterns(int row,char[][]  board,List<List<String>>ans,int[] dcol,int[] upperDiagonal,int[] lowerDiagonal,int n)
     {
         if(row==n)
         {
-            List<String>validSolution= new ArrayList();
-            //Converting string builder to normal array
-            for(StringBuilder sb : board)
+            List<String>currentBoard=new ArrayList<>();
+            for (int i = 0; i < n; i++) 
             {
-                validSolution.add(sb.toString());
+                String str=new String(board[i]);
+                currentBoard.add(str);
             }
-            ans.add(validSolution);
-            return;
+            ans.add(currentBoard);
+            return ;
         }
-
-        for(int i=0;i<n;i++)
+        for(int col=0;col<n;col++)
         {
-            if(cols[i]==1 || upperDiagonal[(n-1)+(row-i)]==1 || lowerDiagonal[(i+row)]==1)
+            if(dcol[col]==1 || upperDiagonal[(n-1)+(row-col)]==1 || lowerDiagonal[row+col]==1)
                 continue;
 
-            board.get(row).setCharAt(i,'Q');
-            cols[i]=1;
-            upperDiagonal[(n-1)+(row-i)]=1;
-            lowerDiagonal[(i+row)]=1;
-            findTotalQueenPatterns(row+1,n,board,cols,upperDiagonal,lowerDiagonal,ans);
-            board.get(row).setCharAt(i,'.');
-            cols[i]=0;
-            upperDiagonal[(n-1)+(row-i)]=0;
-            lowerDiagonal[(i+row)]=0;
-
+            board[row][col]='Q';
+            dcol[col]=1;
+            upperDiagonal[(n-1)+(row-col)]=1;
+            lowerDiagonal[row+col]=1;
+            findQueenPatterns(row+1,board,ans,dcol,upperDiagonal,lowerDiagonal,n);
+            board[row][col]='.';
+            dcol[col]=0;
+            upperDiagonal[(n-1)+(row-col)]=0;
+            lowerDiagonal[row+col]=0;
         }
     }
     public List<List<String>> solveNQueens(int n) 
     {
-            List<StringBuilder> board = new ArrayList<>();
+        List<List<String>>ans=new ArrayList();
+        char[][] board = new char[n][n];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(board[i], '.');
+        }
 
-            for(int i=0;i<n;i++)
-            {
-                board.add(new StringBuilder(".".repeat(n)));
-            }
-            int[] cols=new int[n];
-            int[] upperDiagonal=new int[2*n-1];
-            int[] lowerDiagonal=new int[2*n-1];
 
-            List<List<String>> ans=new ArrayList();
-            findTotalQueenPatterns(0,n,board,cols,upperDiagonal,lowerDiagonal,ans);
-            return ans;
+        int[] dcol=new int[n];
+        int[] upperDiagonal=new int[2*n-1];
+        int[] lowerDiagonal= new int[2*n-1];
+
+        findQueenPatterns(0,board,ans,dcol,upperDiagonal,lowerDiagonal,n);
+        return ans;
     }
 }
