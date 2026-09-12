@@ -1,28 +1,30 @@
 class Solution {
-    public void generateSubsets(int index,int n,List<List<Integer>> ans,List<Integer> subsets,int[] candidates, int target)
+    public void findTotalSubsets(int index,int[]  nums,int n,List<List<Integer>>ans,List<Integer>subset,int target)
     {
-        if (target == 0) {
-            ans.add(new ArrayList<>(subsets));
-            return; 
+        if(target==0)
+        {
+            ans.add(new ArrayList<>(subset));
+            return;
         }
-        
-        if (target < 0) {
+        if(target<0)
+        {   
             return;
         }
         for(int i=index;i<n;i++)
         {
-            if(index<i && candidates[i]==candidates[i-1])continue;
-            subsets.add(candidates[i]);
-            generateSubsets(i+1,n,ans,subsets,candidates,target-candidates[i]);
-            subsets.remove(subsets.size() - 1);
+            if(index<i && nums[i]==nums[i-1])continue;
+            subset.add(nums[i]);
+            findTotalSubsets(i+1,nums,n,ans,subset,target-nums[i]);
+            subset.remove(subset.size()-1);
         }
+        
     }
     public List<List<Integer>> combinationSum2(int[] candidates, int target) 
     {
-        List<List<Integer>> ans= new ArrayList<>();    
-        List<Integer> subsets=new ArrayList<>();
+        List<List<Integer>> ans=new ArrayList<>();
+        List<Integer> subset= new ArrayList<>();
         Arrays.sort(candidates);
-        generateSubsets(0,candidates.length,ans,subsets,candidates,target);
+        findTotalSubsets(0,candidates,candidates.length,ans,subset,target);
         return ans;
     }
 }
